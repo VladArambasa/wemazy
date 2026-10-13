@@ -1,0 +1,377 @@
+// Types, structs, unions and classes. Every line printed here must be the same in JavaScript and in PHP.
+struct Point {
+    int32 x;
+    int32 y;
+}
+struct Player {
+    string name;
+    int32 score = 10;
+    Point pos;
+    float32 speed = 1.5;
+}
+union Number {
+    int32 i;
+    float32 f;
+    uint8 b;
+}
+interface IShape {
+    float64 area();
+    string name();
+}
+abstract class Shape : IShape {
+    protected string label;
+    public static int32 made = 0;
+    Shape(string label) {
+        this.label = label;
+        made++;
+    }
+    public string name() { return label; }
+    public abstract float64 area();
+    public virtual string describe() { return name() + " with area " + area(); }
+}
+class Circle : Shape {
+    private float64 r;
+    public Circle(float64 r) : base("circle") { this.r = r; }
+    public override float64 area() { return 3 * r * r; }
+}
+class Rect : Shape {
+    int32 w, h;
+    public Rect(int32 w, int32 h) : base("rect") {
+        this.w = w;
+        this.h = h;
+    }
+    public override float64 area() { return w * h; }
+    public override string describe() { return "Rect " + w + "x" + h + ": " + base.describe(); }
+}
+class Square extends Rect {
+    public Square(int32 side) {
+        super(side, side);
+        label = "square";
+    }
+}
+class Counter {
+    public static int32 count;
+    public int32 value;
+    public const int32 MAX = 3;
+    public readonly string id;
+    public Counter(string id) { this.id = id; count++; }
+    public void add(int32 n) {
+        value += n;
+        if (value > MAX) value = MAX;
+    }
+    public static int32 twice(int32 n) { return n * 2; }
+    public int32 get() { return value; }
+}
+class Node {
+    public int32 val;
+    public Node next;
+}
+class Animal {
+    public string name = "?";
+    public int32 legs = 4;
+    public virtual string sound() { return "..."; }
+    public string speak() { return name + " says " + sound(); }
+}
+class Dog : Animal {
+    public Dog(string n) { name = n; }
+    public override string sound() { return "woof"; }
+}
+class Bird : Animal {
+    public Bird() { name = "bird"; legs = 2; }
+    public override string sound() { return "tweet"; }
+}
+
+server function t() {
+    // ---- whole numbers ----
+    var unsigned int64 a = 34;
+    var unsigned int32 b;
+    const int32 c = -34;
+    print a;
+    print b;
+    print c;
+    var int8 d = 200;
+    print d;
+    var unsigned int8 e = -1;
+    print e;
+    unsigned char uc = 300;
+    print uc;
+    short sh = 40000;
+    print sh;
+    long long ll = 1234567890123;
+    print ll * 1000;
+    int32 i = 7;
+    print i / 2;
+    print -i / 2;
+    print i % 3;
+    print -i % 3;
+    print i * 2.5;
+    print i / 2.0;
+    int32 big = 2147483647;
+    big++;
+    print big;
+    big--;
+    print big;
+    print big + 1;
+    print big * 2;
+    uint32 u = 5;
+    print u - 6;
+    print u / -1;
+    uint8 small = 250;
+    print small + 10;
+    small += 10;
+    print small;
+    int16 x16 = 1000;
+    x16 *= 100;
+    print x16;
+    int32 n = "12";
+    print n + 1;
+    int32 tr = 3.99;
+    print tr;
+    int32 neg = -3.99;
+    print neg;
+    print (int32)7.9 + (int32)"3";
+    print int32(2.5) + int(7.5);
+    print (uint8)(-2);
+    print (int8)(uint8)200;
+    print int32.MaxValue;
+    print int32.MinValue;
+    print uint8.MaxValue;
+    print sizeof(int64) + sizeof(char) + sizeof(float16);
+    print int.Parse("42") * 2;
+    try {
+        int64 huge = 9007199254740991;
+        huge++;
+        print huge;
+    } catch (Exception ex) {
+        print "too big: " + (ex.length > 0);
+    }
+    try {
+        int32 z = 0;
+        print 5 / z;
+    } catch (e) {
+        print "div: " + e;
+    }
+
+    // ---- floats ----
+    float32 f = 0.1;
+    print f;
+    print f * 3;
+    print f + 0.2;
+    float64 d64 = 0.1;
+    print d64 * 3;
+    float16 hf = 0.1;
+    print hf;
+    float32 third = 1.0 / 3;
+    print third;
+    float fl = 16777217;
+    print fl;
+    double dd = 7;
+    print dd / 2;
+    print (float32)0.1 == 0.1;
+    print (float64)(float32)0.5;
+
+    // ---- char, bool, string ----
+    char ch = 'A';
+    print ch;
+    print ch + 1;
+    char next = ch + 2;
+    print next;
+    print (char)97;
+    print (int32)'a';
+    print 'z' - 'a';
+    char low = 'q';
+    print low - 'a' + 1;
+    print ch == 65;
+    print ch == 'A';
+    bool flag = 1;
+    print flag;
+    bool off = "";
+    print off;
+    print flag + 1;
+    print off + true;
+    string s = "x";
+    print s + 5;
+    print s + 2.5 + true;
+    string num = 12;
+    print num + 1;
+    print "count: " + i;
+    print "5" + i;
+    int32 total = 0;
+    foreach (char letter in "abc") total += letter;
+    print total;
+
+    // ---- lists with types ----
+    int32 marks[3];
+    print marks;
+    marks[2] = 7.9;
+    print marks;
+    int32[] list = {1, 2, 3};
+    list.add(4.5);
+    print list;
+    print list.length;
+    float32[] fs = new float32[2];
+    fs[1] = 0.1;
+    print fs;
+    string[] names = ["Ana", "Ion"];
+    names.add(5);
+    print names;
+    int32 sum = 0;
+    foreach (int32 v in [1.5, 2.5, "3"]) sum += v;
+    print sum;
+    for (int32 k = 0; k < 3; k++) print k * 10;
+    try {
+        print marks[0];
+    } catch (e) {
+        print e;
+    }
+
+    // ---- structs: values, copied like in C ----
+    Point p;
+    print p;
+    p.x = 3;
+    p.y = 4.7;
+    print p;
+    Point q = p;
+    q.x = 100;
+    print p.x;
+    print q.x;
+    Point r = {5, 6};
+    print r;
+    Point r2 = {x: 1};
+    print r2;
+    Point r3 = new Point(7, 8);
+    print r3.x + r3.y;
+    Player pl;
+    print pl;
+    pl.pos.x = 9;
+    pl.name = "Mia";
+    print pl.pos;
+    print pl.speed * 2;
+    Point[] pts = [p, q];
+    pts[1].x = 55;
+    print p.x;
+    print pts[1].x;
+    print moved(p).x;
+    print p.x;
+    print sizeof(Point);
+    print sizeof(Number) + sizeof(p);
+
+    // ---- unions: one memory, many types ----
+    Number num1;
+    num1.f = 1.0;
+    print num1.i;
+    num1.i = -1;
+    print num1.b;
+    print sizeof(Number);
+    Number num2 = {i: 1078530011};
+    print num2.f;
+
+    // ---- classes ----
+    Circle ci = new Circle(2);
+    print ci.area();
+    print ci.name();
+    print ci.describe();
+    Rect re = new Rect(3, 4);
+    print re.describe();
+    Shape sq = new Square(5);
+    print sq.describe();
+    print Shape.made;
+    IShape[] shapes = [ci, re, sq];
+    float64 all = 0;
+    foreach (IShape sh2 in shapes) all += sh2.area();
+    print all;
+    print sq is Rect;
+    print sq is Circle;
+    print ci is IShape;
+    print ci is not Rect;
+    Rect asRect = sq as Rect;
+    print asRect.area();
+    Circle notCircle = sq as Circle;
+    print notCircle == null;
+    Counter c1 = new Counter("one");
+    Counter c2 = new Counter("two");
+    c1.add(2);
+    c1.add(5);
+    c2.add(1);
+    print c1.get() + c2.get();
+    print Counter.count;
+    print Counter.twice(21);
+    print Counter.MAX;
+    print c1.id + c2.id;
+    Counter same = c1;
+    same.add(-3);
+    print c1.value;
+    Node head = new Node();
+    head.val = 1;
+    head.next = new Node();
+    head.next.val = 2;
+    head.next.next = new Node { val = 3 };
+    int32 walk = 0;
+    Node cur = head;
+    while (cur != null) {
+        walk = walk * 10 + cur.val;
+        cur = cur.next;
+    }
+    print walk;
+    Animal[] zoo = [new Dog("Rex"), new Bird(), new Animal()];
+    foreach (Animal an in zoo) print an.speak() + " on " + an.legs + " legs";
+    Animal pet = zoo[1];
+    pet.legs = 3;
+    print zoo[1].legs;
+    print countLegs(zoo);
+    var any = new Dog("Max");
+    print any.speak();
+    print any.sound();
+    Dog back = (Dog)zoo[1 + 0];
+    print back.name;
+    try {
+        Dog wrong = (Dog)zoo[2];
+        print wrong.name;
+    } catch (e) {
+        print "cast: " + e;
+    }
+    try {
+        Node empty = null;
+        print empty.val;
+    } catch (e) {
+        print "null: " + e;
+    }
+    try {
+        // the object comes out of a list, so the code can't know it is a Circle: checked when it runs
+        var hidden = [new Circle(1)][1];
+        print hidden.r;
+    } catch (e) {
+        print "private: " + e;
+    }
+    print maxOf(3, 9.5);
+    print greet("Ana", 3);
+    print half2(9);
+    print ci;
+    print new Dog("Pip");
+}
+
+server function Point moved(Point p) {
+    p.x += 1;
+    return p;
+}
+
+server function int32 countLegs(Animal[] list) {
+    int32 n = 0;
+    foreach (Animal a in list) n += a.legs;
+    return n;
+}
+
+server function int32 maxOf(int32 a, int32 b) {
+    if (a > b) return a;
+    return b;
+}
+
+server function string greet(string name, int32 times) {
+    string out = "";
+    for (int32 k = 1; k <= times; k++) out += name[1];
+    return out + "!";
+}
+
+server function float32 half2(int32 n) {
+    return n / 2;
+}

@@ -1,0 +1,180 @@
+// AND OR XOR NAND NOR XNOR NOT in capitals decide true / false; and or xor nand nor xnor not in
+// small letters work bit by bit on whole numbers (a true / false value is one bit). shl / shr move bits.
+// Every line printed here must be the same in JavaScript and in PHP.
+class Hits { public static int32 n; }
+
+server function t() {
+    // ---- LOGICAL (capitals) ----
+    print true AND false;
+    print true OR false;
+    print true XOR true;
+    print true XOR false;
+    print true NAND true;
+    print false NOR false;
+    print true XNOR true;
+    print NOT true;
+    print NOT 0;
+    print NOT "";
+    print 5 AND 0;
+    print 5 OR 0;
+    print 6 XOR 3;
+    print NOT 5;
+    print "x" AND "y";
+    print 1 AND 2 OR false;
+    print false OR true AND false;
+    print true XOR false AND true;
+    print true NOR false XOR true;
+    // && || ! are the same as AND OR NOT
+    print (3 > 2) && (2 > 1);
+    print !(3 > 2) || (2 > 1);
+    // the right side runs only when it is needed
+    print false AND side();
+    print Hits.n;
+    print true OR side();
+    print Hits.n;
+    print false NAND side();
+    print Hits.n;
+    print true NOR side();
+    print Hits.n;
+    print true AND side();
+    print Hits.n;
+    print true XOR side();
+    print Hits.n;
+
+    // ---- BINARY (small letters) on whole numbers ----
+    print 6 and 3;
+    print 6 or 3;
+    print 6 xor 3;
+    print 6 nand 3;
+    print 6 nor 3;
+    print 6 xnor 3;
+    print not 5;
+    print not 0;
+    print not -1;
+    print 1 shl 4;
+    print 1 << 10;
+    print 255 shr 4;
+    print 1024 >> 3;
+    print -8 shr 1;
+    print 12 and 10 or 1;
+    print 12 or 10 and 1;
+    print 1 or 2 xor 3;
+    print 5 and 3 == 1;
+    // typed: the type of the result follows C
+    int32 a = 6;
+    int32 b = 3;
+    print a and b;
+    print a or b;
+    print a xor b;
+    print not a;
+    uint8 m = 6;
+    print m and 3;
+    print not m;
+    uint32 u = 5;
+    print not u;
+    print u shl 31;
+    print u shl 30;
+    int8 small = 1;
+    print small shl 7;
+    print small shl 8;
+    int64 wide = 1;
+    print wide shl 52;
+    print (wide shl 52) shr 50;
+    uint8 flags = 0;
+    flags = flags or 4;
+    flags = flags or 1;
+    print flags;
+    print (flags and 4) != 0;
+    print (flags and 2) != 0;
+    flags = flags and not 4;
+    print flags;
+    flags = flags xor 255;
+    print flags;
+    char ch = 'a';
+    print ch and 223;
+    print (char)(ch and 223);
+    print 'A' or 32;
+    print true and true;
+    print true and 1;
+    print 3 and true;
+    print a and (b > 1);
+    print (a > 1) and (b > 1);
+    print (a > 1) and (b > 10);
+    print (a > 1) nand (b > 10);
+    print (a > 1) xor (b > 10);
+    print not (a > 1);
+    print not a > 1;
+    print nothing and 5;
+    // values without a type: decided when it runs
+    var x = 12;
+    var y = 10;
+    print x and y;
+    print x or y;
+    print x xor y;
+    print not x;
+    var f = false;
+    var g = true;
+    print f or g;
+    print f and g;
+    print g and x;
+    print x and g;
+    print f xor g;
+    print not f;
+    var name = "Ana";
+    print name and 5;
+    print name or false;
+    print nothing or 7;
+    print nothing and 7;
+    var count = 0;
+    print count or 7;
+    print f and side();
+    print Hits.n;
+    print g or side();
+    print Hits.n;
+    print x and side();
+    print Hits.n;
+    print f nand side();
+    print Hits.n;
+    print g nor side();
+    print Hits.n;
+    print x or y shl 1;
+    print (x and 8) shr 3;
+    try {
+        print 1 shl 40;
+    } catch (e) {
+        print "shift: " + e;
+    }
+    var half = 2.5;
+    try {
+        print half and 3;
+    } catch (e) {
+        print "decimals: " + e;
+    }
+    print "x" and "y";
+    print "" or 0;
+    print [1] and [];
+    print 0 or "";
+    // NOT / not with comparisons: the whole comparison
+    print NOT x > 20;
+    print not x > 20;
+    print NOT name is empty;
+    print not name is empty;
+    if (x > 1 and y > 1) print "both";
+    if (x > 100 or y > 1) print "either";
+    if (not x > 100) print "not big";
+    if (x > 1 AND y > 1 AND NOT f) print "all three";
+    print bits(5);
+    print bits(255);
+    print bits(0);
+}
+
+server function side() {
+    Hits.n++;
+    return true;
+}
+
+server function string bits(int32 n) {
+    string out = "";
+    for (int32 i = 7; i >= 0; i--) out += (n shr i) and 1;
+    return out;
+}

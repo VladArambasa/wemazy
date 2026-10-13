@@ -1,0 +1,13 @@
+# Wemazy on Apache: keep projects, settings and site databases private.
+# Wemazy pe Apache: proiectele, setările și bazele de date ale site-urilor rămân private.
+Options -Indexes
+DirectoryIndex index.html index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule (^|/)\. - [F,L]
+  RewriteRule ^data(/|$) - [F,L]
+  RewriteRule ^sites/[^/]+/(data|wemazy)(/|$) - [F,L]
+  RewriteRule ^server/(?!api\.php$) - [F,L]
+  RewriteRule ^tests(/|$) - [F,L]
+</IfModule>

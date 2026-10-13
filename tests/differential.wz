@@ -1,0 +1,313 @@
+server function t()
+    print 1 + 2
+    print "5" + "3"
+    print "Room " + 5
+    print 0.1 + 0.2
+    print 10 / 4
+    print 10 / 2
+    print 7 mod 3
+    print -7 mod 3
+    print 7.5 mod 2
+    print 2 ^ 10
+    print 2 ^ 0.5
+    print "a" & 1 & true
+    print 5 = "5"
+    print "abc" = "ABC"
+    print "abc" < "abd"
+    print 10 > 9
+    print "10" > "9"
+    print "apple" > "Apple"
+    print [1, 2] = [1, 2]
+    print {a: 1} = {a: 1}
+    print nothing = nothing
+    print nothing = 0
+    print true = "true"
+    print "Hello" contains "ell"
+    print "Hello" contains "ELL"
+    print [1, 2, 3] contains 2
+    print [1, 2, 3] contains "2"
+    print "Hello" starts with "he"
+    print "Hello" ends with "LO"
+    print "  " is empty
+    print 0 is empty
+    print [] is empty
+    print "x" is not empty
+    print [1, 2, 3][2]
+    print [1, 2, 3][-1]
+    print "Wemazy"[3]
+    print "ăîșț"[2]
+    print {name: "Ana"}.name
+    print {name: "Ana"}.NAME
+    print {name: "Ana"}.age
+    print length("ăîșț")
+    print length([1, 2])
+    print upper("ăîșț")
+    print lower("ĂÎȘȚ abc")
+    print capitalize("ana maria")
+    print trim("  x  ")
+    print replace("a-b-c", "-", "+")
+    print split("a, b,c")
+    print split("a b c", " ")
+    print split("", ",")
+    print join([1, 2, 3])
+    print join(["x", "y"], "-")
+    print part("Wemazy", 2, 3)
+    print part([1, 2, 3, 4], 2)
+    print part("abc", -2)
+    print position("banana", "n")
+    print position("șarpe", "r")
+    print position([5, 6, 7], 7)
+    print position("abc", "z")
+    print reverse("abc")
+    print reverse([1, 2, 3])
+    print format(3.14159, 2)
+    print format(2, 3)
+    print format(1.005, 2)
+    print round(3.456, 2)
+    print round(2.5)
+    print round(-2.5)
+    print round(1.005, 2)
+    print round(1234.5678, -2)
+    print floor(-3.5)
+    print ceil(3.1)
+    print abs(-4)
+    print sqrt(16)
+    print sqrt(2)
+    print power(2, 8)
+    print min(4, 2, 9)
+    print max([4, 2, 9])
+    print min("b", "a")
+    print sum([1, 2, 3.5])
+    print sum([{p: 2}, {p: 3}], "p")
+    print average([4, 6])
+    print average([1, 2])
+    print first([9, 8])
+    print last("xyz")
+    print first([])
+    print sort([3, 1, 2])
+    print sort(["b", "a", "C"])
+    print sort([{n: 2}, {n: 1}], "n", true)
+    print sort([10, 9, 100])
+    print unique([1, 1, 2, "2"])
+    print keys({a: 1, b: 2})
+    print has({a: 1}, "A")
+    print has({a: 1}, "b")
+    print range(1, 5)
+    print range(5, 1)
+    print text(3.50)
+    print text(1 / 3)
+    print number("3,5") + 1
+    print isNumber("12")
+    print isNumber("12a")
+    print isNumber(" 3.5 ")
+    print toJson({a: [1, 2], b: "x"})
+    print toJson(["ș", nothing, true])
+    print fromJson("[1, 2, 3]")
+    print fromJson('{"a": {"b": 2}}')
+    print daysBetween("2026-10-13", "2026-12-25")
+    print daysBetween("2026-03-28", "2026-03-30")
+    print addDays("2026-12-30", 3)
+    print addDays("2026-03-01 10:30", -1)
+    print weekday("2026-10-13")
+    print weekday("2026-10-18")
+    print year("2026-10-13")
+    print month("13.10.2026")
+    print day("2026-10-13")
+    print [1, 2] + 3
+    print [1] + [2, 3]
+    print nothing + 5
+    print 5 + nothing
+    print nothing + "x"
+    print 100000000000000000000
+    print 123456789012 * 1000
+    print 2 / 3
+    print 1 / 7 * 7
+    print -0.5 * 2
+    print 0.000001
+    print 0.0000001
+    print 1 / 3 * 3
+    print 99999999999999999999 + 1
+    print {a: 1, b: [1, "x"], c: nothing}
+    print [[1, 2], [3]]
+    print ["a", 1, {x: "y"}]
+    print true
+    print nothing
+    print not true
+    print 1 < 2 and 2 < 3
+    print 0 or ""
+    print "a" is not "b"
+    print 3 is greater than 2
+    print 3 is at most 2
+    print "b" is less than "c"
+    print 7 is equal to "7"
+    set l to [1, 2, 3]
+    add 4 to l
+    remove 2 from l
+    print l
+    set l[1] to 10
+    print l
+    set l[4] to 99
+    print l
+    set r to {a: 1}
+    set r.b to 2
+    set r.A to 5
+    print r
+    remove "b" from r
+    print r
+    set n to 5
+    add 3 to n
+    print n
+    remove 1 from n
+    print n
+    set s to "abc"
+    add "d" to s
+    print s
+    remove "b" from s
+    print s
+    set s2 to "10"
+    add 5 to s2
+    print s2
+    set e to nothing
+    add 1 to e
+    print e
+    set e2 to nothing
+    add "x" to e2
+    print e2
+    increase n by 2
+    print n
+    decrease n
+    print n
+    clear l
+    print l
+    print length(l)
+    for i from 1 to 2 step 0.5
+        print i
+    end for
+    for i from 3 to 1
+        print i
+    end for
+    for i from 1 to 0.3 step 0.1
+        print "never"
+    end for
+    for each c in "ab"
+        print c
+    end for
+    for each k in {x: 1, y: 2}
+        print k
+    end for
+    for each k in 3
+        print k
+    end for
+    repeat 3 times
+        print "r"
+    end repeat
+    repeat 0 times
+        print "never"
+    end repeat
+    set i to 0
+    repeat while i < 3
+        increase i
+    end repeat
+    print i
+    repeat until i = 0
+        decrease i
+    end repeat
+    print i
+    for each x in [1, 2, 3, 4, 5]
+        if x = 2 then skip
+        if x = 4 then stop
+        print x
+    end for
+    set nested to {list: [1, 2]}
+    add 3 to nested.list
+    print nested
+    set grid to [[1, 2], [3, 4]]
+    set grid[2][1] to 30
+    print grid
+    print grid[2][1]
+    set people to [{name: "Ana", age: 12}, {name: "Ion", age: 11}]
+    print sort(people, "age")[1].name
+    print sum(people, "age")
+    print "Name: {people[1].name}, age {people[1].age + 1}"
+    print 'raw {not interpolated}'
+    print "tab\there"
+    print "quote \" and brace \{"
+    try
+        print "x" * 2
+    on error
+        print "error: " & error
+    end try
+    try
+        print 5 / 0
+    on error
+        print "error: " & error
+    end try
+    try
+        print 5 mod 0
+    on error
+        print "error: " & error
+    end try
+    try
+        print [1, 2][5]
+    on error
+        print "error: " & error
+    end try
+    try
+        print [1, 2][1.5]
+    on error
+        print "error: " & error
+    end try
+    try
+        print "abc"[9]
+    on error
+        print "error: " & error
+    end try
+    try
+        print nothing.name
+    on error
+        print "error: " & error
+    end try
+    try
+        print number("")
+    on error
+        print "error: " & error
+    end try
+    try
+        print fromJson('{bad')
+    on error
+        print "error: " & error
+    end try
+    try
+        print daysBetween("soon", "2026-01-01")
+    on error
+        print "error: " & error
+    end try
+    try
+        for i from 1 to 5 step 0
+            print i
+        end for
+    on error
+        print "error: " & error
+    end try
+    try
+        print 5.name
+    on error
+        print "error: " & error
+    end try
+    print sort(["bogdan", "Ana", "cristi", "ana"])
+    print sort(["10", "9", "x"])
+    print []
+    print helper(3)
+    print fact(10)
+end function
+
+server function helper(x)
+    return x * 2
+end function
+
+server function fact(n)
+    if n <= 1 then
+        return 1
+    end if
+    return n * fact(n - 1)
+end function

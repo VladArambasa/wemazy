@@ -1,0 +1,102 @@
+// More types: nested structs (copied), chained methods, static methods, var with objects, typed lists.
+struct Line { Point a; Point b; }
+struct Point { int32 x; int32 y; }
+struct Bag { int32 items[3]; string tag = "bag"; }
+class Stack {
+    private int32[] items;
+    public int32 size() { return items.length; }
+    public Stack push(int32 v) { items.add(v); return this; }
+    public int32 pop() {
+        int32 last = items[items.length];
+        items.remove(last);
+        return last;
+    }
+    public bool isEmpty() { return items.length == 0; }
+}
+class Temp {
+    public float32 c;
+    public float32 f() { return c * 9 / 5 + 32; }
+    public static Temp from(float32 f) {
+        Temp tt = new Temp();
+        tt.c = (f - 32) * 5 / 9;
+        return tt;
+    }
+}
+class Base1 {
+    public int32 n = 1;
+    public string who() { return "base"; }
+    public string call() { return who(); }
+}
+class Derived1 : Base1 {
+    public Derived1() { n = 2; }
+    public override string who() { return "derived " + n; }
+}
+server function t() {
+    Line ln;
+    ln.b.x = 5;
+    print ln;
+    Line ln2 = ln;
+    ln2.a.y = 9;
+    print ln.a.y;
+    print ln2.a.y;
+    Bag bag;
+    print bag;
+    bag.items[2] = 7;
+    Bag bag2 = bag;
+    bag2.items[2] = 8;
+    print bag.items;
+    print bag2.items;
+    Stack s = new Stack();
+    s.push(1).push(2).push(3);
+    print s.size();
+    print s.pop();
+    print s.size();
+    print s.isEmpty();
+    var temp = Temp.from(212);
+    print temp.c;
+    print temp.f();
+    Base1 d = new Derived1();
+    print d.call();
+    print d.n;
+    // var alone keeps the simple rules
+    var a = 7;
+    print a / 2;
+    var b = "3";
+    print b + 4;
+    print b & 4;
+    var list = [1, 2, 3];
+    var copy = list;
+    copy.add(4);
+    print list;
+    print copy;
+    // a typed list is a value
+    int32[] tl = [1, 2, 3];
+    int32[] tc = tl;
+    tc.add(4);
+    print tl;
+    print tc;
+    foreach (var it in tl) print it * 2;
+    int32 total = 0;
+    foreach (var it2 in tl) total += it2;
+    print total;
+    // structs in lists and records
+    Point[] pts = [{1, 2}, {3, 4}];
+    print pts;
+    print pts[2].y;
+    var rec = {p: pts[1]};
+    rec.p.x = 99;
+    print pts[1].x;
+    print rec.p.x;
+    print describe({7, 8});
+    print sumPoints(pts);
+    uint64 u = 9007199254740991;
+    print u;
+}
+server function string describe(Point p) {
+    return "(" + p.x + ", " + p.y + ")";
+}
+server function int32 sumPoints(Point[] list) {
+    int32 n = 0;
+    foreach (Point p in list) n += p.x + p.y;
+    return n;
+}

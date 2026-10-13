@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wemazy</title>
+<meta name="description" content="Make websites by drag and drop, and program them in a simple language that becomes JavaScript, PHP and SQL.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='1' y='1' width='22' height='22' rx='5' fill='%23f2a93b'/%3E%3Cpath d='M5.5 6.5v11h4.25V10h4.5v7.5h4.25v-11' fill='none' stroke='%23241703' stroke-width='2.2'/%3E%3Ccircle cx='18.5' cy='6.5' r='1.4' fill='%23241703'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="ide/ide.css">
+<script>
+  // the light or dark look, before anything is drawn
+  (function () {
+    var t = null;
+    try { t = JSON.parse(localStorage.getItem('wemazy:set:theme')); } catch (e) { t = null; }
+    if (t !== 'light' && t !== 'dark') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+</head>
+<body>
+<div id="app" class="ide"><div class="boot">Wemazy…</div></div>
+<noscript><p style="padding:20px">Wemazy needs JavaScript. / Wemazy are nevoie de JavaScript.</p></noscript>
+
+<!-- the language: compiler and language packs -->
+<script src="language/compiler.js"></script>
+<script src="language/packs/core.js"></script>
+<script src="language/packs/list.js"></script>
+
+<!-- what runs inside the websites -->
+<script src="runtime/core.js"></script>
+<script src="runtime/server.js"></script>
+<script src="runtime/client.js"></script>
+<script src="runtime/php.js"></script>
+
+<!-- the IDE -->
+<script src="ide/i18n.js"></script>
+<script src="ide/util.js"></script>
+<script src="ide/icons.js"></script>
+<script src="ide/zip.js"></script>
+<script src="ide/storage.js"></script>
+<script src="ide/controls.js"></script>
+<script src="ide/project.js"></script>
+<script src="ide/build.js"></script>
+<script src="ide/templates.js"></script>
+<script src="ide/editor.js"></script>
+<script src="ide/designer.js"></script>
+<script src="ide/properties.js"></script>
+<script src="ide/panels.js"></script>
+<script src="ide/runner.js"></script>
+<script src="ide/database.js"></script>
+<script src="ide/langlab.js"></script>
+<script src="ide/help.js"></script>
+<script src="ide/app.js"></script>
+<script>
+  // load the community language packs listed in language/packs/list.js, then start
+  (function () {
+    var W = window.Wemazy;
+    var files = (W.packFiles || []).slice();
+    var left = files.length;
+    function start() {
+      W.i18n.init(W.store.setting('uiLang', null));
+      W.boot();
+    }
+    if (!left) { start(); return; }
+    files.forEach(function (f) {
+      var s = document.createElement('script');
+      s.src = 'language/packs/' + f;
+      s.onload = s.onerror = function () { if (--left === 0) start(); };
+      document.head.appendChild(s);
+    });
+  })();
+</script>
+</body>
+</html>

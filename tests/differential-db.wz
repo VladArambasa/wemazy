@@ -1,0 +1,104 @@
+server function t()
+    print find all Products
+    print count Products
+    print find all Products where price > 2 order by price
+    print find all Products where price > 2 order by price descending limit 2
+    print find first Products where name contains "an"
+    print find first Products where name contains "AN"
+    print find all Products where name starts with "c"
+    print find all Products where name ends with "%"
+    print find all Products where name contains "_"
+    print find all Products where stock is empty
+    print find all Products where added is empty
+    print find all Products where added is not empty
+    print find all Products where onSale
+    print find all Products where onSale = true
+    print find all Products where not onSale
+    print find all Products where onSale = false and price < 5
+    print find all Products where price >= 3 or stock = 0
+    print find all Products where stock = nothing
+    print find all Products where stock != nothing order by stock
+    print find all Products where price * stock > 20
+    print find all Products where Products.name = "Apple"
+    set minPrice to 5
+    print find all Products where price > minPrice
+    print find all Products where price > minPrice - 4 and name != "Apple"
+    print count Products where price < 10
+    print find all Products order by onSale descending, name
+    print find all Products limit 0
+    set p to find first Products where name = "Cherry"
+    print p.price
+    print p.onSale
+    print p.id
+    print find first Products where name = "Nope"
+    add {product: "Apple", qty: 2, note: "first order"} to Orders
+    add {product: "Cherry", qty: "3"} to Orders
+    set rec to {product: "banana", qty: 5}
+    add rec to Orders
+    print find all Orders
+    print count Orders where qty > 2
+    update Orders set qty = qty + 1 where product = "Apple"
+    print find first Orders where product = "Apple"
+    update Orders set note = "bulk", qty = 10 where qty >= 5
+    print find all Orders order by id
+    update Products set onSale = "yes" where name = "banana"
+    print find first Products where name = "banana"
+    update Products set price = "4,25" where id = 1
+    print (find first Products where id = 1).price
+    delete from Orders where qty < 3
+    print count Orders
+    print sum(find all Orders, "qty")
+    delete from Orders
+    print find all Orders
+    add {product: "x"} to Orders
+    print (find first Orders).id
+    try
+        set bad to {product: "x", colour: "red"}
+        add bad to Orders
+    on error
+        print "error: " & error
+    end try
+    try
+        add "not a record" to Orders
+    on error
+        print "error: " & error
+    end try
+    set rows to find all Products where name contains "a" order by name
+    for each row in rows
+        print row.name & " costs " & row.price
+    end for
+    print length(rows)
+    print find all Products order by random limit 0
+    tc()
+end function
+
+// the same kind of program, written the C-like way
+server function tc() {
+    print "--- C-like";
+    print Products.count();
+    print Products.all().length;
+    var cheap = find all Products where price < 5 && !onSale order by name;
+    print cheap;
+    foreach (var p in find all Products where price >= 3 order by price) {
+        print p.name + ": " + p.price;
+    }
+    Orders.add({product: "Pear", qty: 2, note: "C-like"});
+    Orders.add({product: "Plum", qty: 7});
+    print (count Orders where qty > 1) + 0;
+    update Orders set qty = qty * 10 where product == "Pear";
+    var pear = find first Orders where product == "Pear";
+    print pear.qty;
+    print pear.note.toUpper();
+    if (pear.empty()) print "no pear"; else print "pear found";
+    delete from Orders where qty > 50 || note == "C-like";
+    print Orders.count();
+    var all = Orders.all();
+    all.sort("qty", true);
+    print all.length;
+    try {
+        var bad = {product: "x", colour: "red"};
+        Orders.add(bad);
+    } catch (e) {
+        print "caught: " + (e.length > 0);
+    }
+}
